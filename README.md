@@ -31,7 +31,7 @@ Before running the script, ensure the following:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Lalatenduswain/Email-Alert-For-ProxMox-CPU-Temperature.git
+   git clone https://github.com/Lalatenduswain/list_domains_master.git
    ```
 2. Navigate to the cloned directory:
    ```bash
@@ -58,6 +58,45 @@ Before running the script, ensure the following:
 
 The script will continuously monitor the CPU temperature and send an email alert if any core temperature exceeds the defined threshold.
 
+## Additional Testing and Setup
+
+1. Create and make the monitoring script executable:
+   ```bash
+   touch temp_monitor.sh && chmod +x temp_monitor.sh && nano temp_monitor.sh
+   ```
+
+2. Run the monitoring script in the background:
+   ```bash
+   ./temp_monitor.sh &
+   ```
+
+3. Install the `stress` tool for load testing:
+   ```bash
+   sudo apt update
+   sudo apt install stress -y
+   ```
+
+4. Run stress tests to simulate high CPU load:
+   ```bash
+   stress --cpu 4 --timeout 5
+   stress --cpu 4 --timeout 5 --quiet
+   ```
+
+   This will run the stress command with 4 CPU workers for 10 seconds with minimal output.
+
+5. Clear log files and send a test email:
+   ```bash
+   sudo truncate -s 0 /var/log/mail.log && truncate -s 0 /home/lalatendu/mbox
+   echo "Test email body" | mail -s "Test Subject" lalatendu.swain@gmail.com
+   sudo tail -f /var/log/mail.log
+   ```
+
+6. Monitor and stop the `temp_monitor.sh` process:
+   ```bash
+   ps aux | grep temp_monitor.sh
+   pkill -f temp_monitor.sh
+   ```
+
 ## Script Details
 
 ### Script Name: backup_lxc.sh
@@ -66,12 +105,10 @@ The script will continuously monitor the CPU temperature and send an email alert
 #!/bin/bash
 
 # Email details
-email1="user1@lalatendu.info"
-email3="user2@lalatendu.info"
-email4="user3@lalatendu.info"
-bcc_email="user4@lalatendu.info"
+email1="example@lalatendu.info"
+email2="example@lalatendu.info"
 subject="Server ROOM CPU Overheat Temperature Alert"
-message="One of the Server CPU temperatures has exceeded 75°C. We need to turn on the AC and maintain a cool temperature in the Server room."
+message="One of the Server CPU temperatures has exceeded 45°C. We need to turn on the AC and maintain a cool temperature in the Server room."
 
 while true; do
     # Get the temperatures
@@ -79,15 +116,9 @@ while true; do
     
     # Check each core temperature
     for temp in $core_temps; do
-        if (( $(echo "$temp > 75" | bc -l) )); then
-            (
-                echo "To: $email1"
-                echo "Cc: $email3, $email4"
-                echo "Bcc: $bcc_email"
-                echo "Subject: $subject"
-                echo
-                echo "$message"
-            ) | sendmail -t
+        if (( $(echo "$temp > 35" | bc -l) )); then
+            echo "$message" | mail -s "$subject" "$email1"
+            echo "$message" | mail -s "$subject" "$email2"
             break
         fi
     done
