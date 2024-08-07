@@ -31,7 +31,7 @@ Before running the script, ensure the following:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Lalatenduswain/list_domains_master.git
+   git clone https://github.com/Lalatenduswain/Email-Alert-For-ProxMox-CPU-Temperature.git
    ```
 2. Navigate to the cloned directory:
    ```bash
