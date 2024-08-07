@@ -31,7 +31,7 @@ Before running the script, ensure the following:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Lalatenduswain/list_domains_master.git
+   git clone https://github.com/Lalatenduswain/Email-Alert-For-ProxMox-CPU-Temperature.git
    ```
 2. Navigate to the cloned directory:
    ```bash
@@ -40,20 +40,20 @@ Before running the script, ensure the following:
 
 ## Usage
 
-1. Open the script `backup_lxc.sh` in a text editor:
+1. Open the script `temp_monitor.sh` in a text editor:
    ```bash
-   nano backup_lxc.sh
+   nano temp_monitor.sh
    ```
 2. Update the email addresses and temperature threshold if needed.
 
 3. Make the script executable:
    ```bash
-   chmod +x backup_lxc.sh
+   chmod +x temp_monitor.sh
    ```
 
 4. Run the script:
    ```bash
-   ./backup_lxc.sh
+   ./temp_monitor.sh
    ```
 
 The script will continuously monitor the CPU temperature and send an email alert if any core temperature exceeds the defined threshold.
@@ -99,7 +99,7 @@ The script will continuously monitor the CPU temperature and send an email alert
 
 ## Script Details
 
-### Script Name: backup_lxc.sh
+### Script Name: temp_monitor.sh
 
 ```bash
 #!/bin/bash
