@@ -69,7 +69,7 @@ The script will continuously monitor the CPU temperature and send an email alert
 email1="user1@lalatendu.info"
 email3="user2@lalatendu.info"
 email4="user3@lalatendu.info"
-bcc_email="jalal76798@gmail.com"
+bcc_email="user4@lalatendu.info"
 subject="Server ROOM CPU Overheat Temperature Alert"
 message="One of the Server CPU temperatures has exceeded 75°C. We need to turn on the AC and maintain a cool temperature in the Server room."
 
