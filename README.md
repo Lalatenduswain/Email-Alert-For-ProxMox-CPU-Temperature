@@ -66,10 +66,12 @@ The script will continuously monitor the CPU temperature and send an email alert
 #!/bin/bash
 
 # Email details
-email1="example@lalatendu.info"
-email2="example@lalatendu.info"
+email1="user1@lalatendu.info"
+email3="user2@lalatendu.info"
+email4="user3@lalatendu.info"
+bcc_email="jalal76798@gmail.com"
 subject="Server ROOM CPU Overheat Temperature Alert"
-message="One of the Server CPU temperatures has exceeded 45°C. We need to turn on the AC and maintain a cool temperature in the Server room."
+message="One of the Server CPU temperatures has exceeded 75°C. We need to turn on the AC and maintain a cool temperature in the Server room."
 
 while true; do
     # Get the temperatures
@@ -77,9 +79,15 @@ while true; do
     
     # Check each core temperature
     for temp in $core_temps; do
-        if (( $(echo "$temp > 35" | bc -l) )); then
-            echo "$message" | mail -s "$subject" "$email1"
-            echo "$message" | mail -s "$subject" "$email2"
+        if (( $(echo "$temp > 75" | bc -l) )); then
+            (
+                echo "To: $email1"
+                echo "Cc: $email3, $email4"
+                echo "Bcc: $bcc_email"
+                echo "Subject: $subject"
+                echo
+                echo "$message"
+            ) | sendmail -t
             break
         fi
     done
