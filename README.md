@@ -7,21 +7,25 @@ This script continuously monitors the CPU temperature of a server and sends emai
 Before running the script, ensure the following:
 
 1. **Operating System**: This script is designed for Unix-like operating systems.
-2. **sensors Command**: Install the `lm-sensors` package to get the CPU temperature readings.
+2. **Required Packages**: Install the necessary packages using the following command:
    ```bash
-   sudo apt-get install lm-sensors
+   sudo apt-get install lm-sensors nload libsasl2-modules postfix mailutils sendmail postfix-pcre -y
    ```
+   - `lm-sensors`: For monitoring CPU temperature.
+   - `nload`: For network monitoring (optional, but useful for general monitoring).
+   - `libsasl2-modules`: For SASL authentication.
+   - `postfix`: Mail Transfer Agent (MTA) for sending emails.
+   - `mailutils`: Utility for sending emails.
+   - `sendmail`: Alternative to Postfix for sending emails.
+   - `postfix-pcre`: PCRE support for Postfix.
+
    After installation, detect the sensors by running:
    ```bash
    sudo sensors-detect
    ```
    Follow the on-screen instructions and allow the script to add the necessary modules.
 
-3. **mail Command**: Ensure you have a mail utility installed and configured to send emails.
-   ```bash
-   sudo apt-get install mailutils
-   ```
-   Configure your mail system as per your requirements. For example, you might need to set up `postfix` or any other Mail Transfer Agent (MTA).
+3. **Mail Configuration**: Configure your mail system to send emails. You may need to set up Postfix or another Mail Transfer Agent (MTA) according to your requirements.
 
 ## Installation
 
@@ -62,8 +66,8 @@ The script will continuously monitor the CPU temperature and send an email alert
 #!/bin/bash
 
 # Email details
-email1="lalatendu@ceruleaninfotech.com"
-email2="lalatendu.swain@gmail.com"
+email1="example@lalatendu.info"
+email2="example@lalatendu.info"
 subject="Server ROOM CPU Overheat Temperature Alert"
 message="One of the Server CPU temperatures has exceeded 45°C. We need to turn on the AC and maintain a cool temperature in the Server room."
 
